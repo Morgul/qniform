@@ -1,16 +1,23 @@
 //----------------------------------------------------------------------------------------------------------------------
-// App Theme
+/// Main Client-side Application
+///
+/// @module
 //----------------------------------------------------------------------------------------------------------------------
 
-@import "bootstrap";
-
-// Components
-@import "components/test_tag/test";
+import vueLoader from '../loader/vueLoader'
 
 //----------------------------------------------------------------------------------------------------------------------
 
-body {
-    padding-top: 54px;
-}
+vueLoader.component('test', {
+    name: 'TestComponent',
+    templateUrl: '/components/test_tag/test.html',
+    replace: false,
+    data: function()
+    {
+        return {
+            friend: 'World'
+        };
+    }
+});
 
 //----------------------------------------------------------------------------------------------------------------------

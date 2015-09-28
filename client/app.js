@@ -5,8 +5,12 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 import Vue from 'vue'
+
 import testSvc from './components/test/test'
-//import './components/test_tag/test'
+
+// Components
+import './components/navbar/navbar'
+import './components/test_tag/test'
 
 //----------------------------------------------------------------------------------------------------------------------
 

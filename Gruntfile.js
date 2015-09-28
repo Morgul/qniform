@@ -9,8 +9,7 @@ module.exports = function(grunt)
             dist: {
                 options: {
                     alias: {
-                        'vue': './vendor/vue/dist/vue.js',
-                        'jquery': './vendor/jquery/dist/jquery.js'
+                        'vue': './vendor/vue/dist/vue.js'
                     },
                     transform: [
                         ["babelify"]
@@ -24,11 +23,11 @@ module.exports = function(grunt)
         sass: {
             dist: {
                 options: {
-                    includePaths: ['vendor/bootstrap/scss', 'client/scss'],
+                    includePaths: ['vendor/bootstrap/scss', 'client/scss', 'client'],
                     style: 'expanded'
                 },
                 files: {
-                    'dist/css/app.css': 'client/scss/theme.scss',
+                    'dist/css/app.css': 'client/scss/theme.scss'
                 }
             }
         },
@@ -37,12 +36,27 @@ module.exports = function(grunt)
             index: {
                 src: 'client/index.html',
                 dest: 'dist/index.html'
+            },
+            html: {
+                expand: true,
+                cwd: 'client',
+                src: '**/*.html',
+                dest: 'dist'
+            },
+            vendor: {
+                expand: true,
+                src: ['vendor/**/*.js', '!vendor/vue/**/*.js'],
+                dest: 'dist'
             }
         },
         watch: {
             index: {
                 files: ["client/index.html"],
                 tasks: ["copy:index"]
+            },
+            html: {
+                files: ["client/**/*.html"],
+                tasks: ["copy:html"]
             },
             scss: {
                 files: ["client/**/*.scss"],
