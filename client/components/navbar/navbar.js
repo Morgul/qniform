@@ -38,13 +38,11 @@ vueLoader.component('navbar', {
     {
         this.$on('logged in', (user) =>
         {
-            console.log('sup?');
             this.user = user;
         });
 
         this.$on('logged out', () =>
         {
-            console.log('sup2?');
             this.user = null;
         });
     }

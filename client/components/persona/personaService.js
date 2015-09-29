@@ -57,7 +57,7 @@ class PersonaService
     signIn()
     {
         navigator.id.request();
-    }
+    } // end signIn
 
     signOut()
     {

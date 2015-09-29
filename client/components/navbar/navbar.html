@@ -18,7 +18,7 @@
                 <a class="nav-link" href="#">About</a>
             </li>
         </ul>
-        <form class="form-inline navbar-form pull-right">
+        <div class="form-inline navbar-form pull-right">
             <p class="form-control-static">{{ display }}&nbsp;</p>
             <button v-if="!user" class="btn btn-primary" @click="signIn()">
                 <i class="fa fa-fw fa-envelope-o"></i>
@@ -28,6 +28,6 @@
                 <i class="fa fa-fw fa-sign-out"></i>
                 <span>Sign Out</span>
             </button>
-        </form>
+        </div>
     </div>
 </nav>
