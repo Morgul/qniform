@@ -45,7 +45,7 @@ module.exports = function(grunt)
             },
             vendor: {
                 expand: true,
-                src: ['vendor/**/*.js', '!vendor/vue/**/*.js'],
+                src: ['vendor/**/*.js', 'vendor/font-awesome/**/*', '!vendor/vue/**/*.js'],
                 dest: 'dist'
             }
         },

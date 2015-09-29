@@ -6,7 +6,9 @@
 
 import Vue from 'vue'
 
-import testSvc from './components/test/test'
+// Services
+import eventSvc from './components/events/eventService'
+import personaSvc from './components/persona/personaService.js'
 
 // Components
 import './components/navbar/navbar'
@@ -23,12 +25,13 @@ var app = new Vue({
         fullMsg: function()
         {
             var now = Date.now();
-            return `${ this.msg } World (${now})`;
+            return `${ this.msg } World (${ now })`;
         }
     }
 });
 
-testSvc.testFunc();
+// Setup Event Service
+eventSvc.init(app);
 
 //----------------------------------------------------------------------------------------------------------------------
 

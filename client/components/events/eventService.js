@@ -1,23 +1,33 @@
 //----------------------------------------------------------------------------------------------------------------------
-/// Navbar component
+/// EventService
 ///
 /// @module
 //----------------------------------------------------------------------------------------------------------------------
 
-import vueLoader from '../loader/vueLoader'
-import personaSvc from '../persona/personaService'
+class EventService {
+    init(app)
+    {
+        this.app = app;
+    } // end init
+
+    broadcast()
+    {
+        this.app.$broadcast.apply(this.app, arguments);
+    } // end broadcast
+
+    on()
+    {
+        this.app.$on.apply(this.app, arguments);
+    } // end on
+
+    off()
+    {
+        this.app.$off.apply(this.app, arguments);
+    } // end off
+} // end EventService
 
 //----------------------------------------------------------------------------------------------------------------------
 
-vueLoader.component('navbar', {
-    name: 'Navbar',
-    templateUrl: '/components/navbar/navbar.html',
-    methods: {
-        signIn: function()
-        {
-            personaSvc.signIn();
-        }
-    }
-});
+export default new EventService();
 
 //----------------------------------------------------------------------------------------------------------------------
