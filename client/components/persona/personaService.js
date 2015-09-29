@@ -2,9 +2,9 @@
 // Persona Controller
 //----------------------------------------------------------------------------------------------------------------------
 
-import axios from 'axios'
+import http from 'axios';
 
-import eventSvc from '../events/eventService'
+import eventSvc from '../events/eventService';
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -13,8 +13,8 @@ class PersonaService
     constructor()
     {
         this.currentUser = null;
-        this.loginUrl = '/login';
-        this.logoutUrl = '/logout';
+        this.loginUrl = '/auth/login-persona';
+        this.logoutUrl = '/auth/logout-persona';
 
         // Register for the Persona events
         navigator.id.watch({
@@ -26,11 +26,10 @@ class PersonaService
 
     _onLogIn(assertion)
     {
-        console.log('_onLogIn:', this.currentUser);
-        axios.post(this.loginUrl, { assertion })
+        http.post(this.loginUrl, { assertion })
             .then((response) =>
             {
-                this.currentUser = response.data.user;
+                this.currentUser = response.data;
                 eventSvc.broadcast('logged in', this.currentUser);
             })
             .catch((response) =>
@@ -42,14 +41,12 @@ class PersonaService
 
     _onLogOut()
     {
-        console.log('_onLogOut:', this.currentUser);
-        axios.post(this.logoutUrl, {})
+        http.post(this.logoutUrl, {})
             .then(() =>
             {
                 this.signOut();
                 this.currentUser = null;
                 eventSvc.broadcast('logged out');
-                //location.href = '/';
             })
             .catch((response) =>
             {
