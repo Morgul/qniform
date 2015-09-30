@@ -10,25 +10,25 @@ import Vue from 'vue'
 
 //----------------------------------------------------------------------------------------------------------------------
 
-function component(componentName, vueOpts)
+function extend(vueOpts)
 {
-    return Vue.component(componentName, function(resolve, reject)
+    if(vueOpts.templateUrl)
     {
-        if(vueOpts.templateUrl)
+        return function(resolve, reject)
         {
-            axios.get(vueOpts.templateUrl)
+            return axios.get(vueOpts.templateUrl)
                 .then((response) =>
                 {
                     delete vueOpts.templateUrl;
                     vueOpts.template = response.data;
 
-                    resolve(vueOpts);
+                    resolve(Vue.extend(vueOpts));
                 })
                 .catch((response) =>
                 {
-                    if (response instanceof Error)
+                    if(response instanceof Error)
                     {
-                        reject(response)
+                        reject(response);
                     }
                     else
                     {
@@ -42,16 +42,21 @@ function component(componentName, vueOpts)
                         } // end if
                     } // end if
                 });
-        }
-        else
-        {
-            resolve(vueOpts);
-        } // end if
-    });
+        };
+    }
+    else
+    {
+        return Vue.extend(vueOpts);
+    } // end if
+} // end extend
+
+function component(componentName, vueOpts)
+{
+    return Vue.component(componentName, extend(vueOpts));
 } // end component
 
 //----------------------------------------------------------------------------------------------------------------------
 
-module.exports = { component: component };
+export default { component, extend };
 
 //----------------------------------------------------------------------------------------------------------------------
