@@ -8,9 +8,6 @@ module.exports = function(grunt)
         browserify: {
             dist: {
                 options: {
-                    alias: {
-                        'vue': './vendor/vue/dist/vue.js'
-                    },
                     transform: [
                         ["babelify"]
                     ]
