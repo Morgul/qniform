@@ -30,6 +30,7 @@
     "express": "^4.13.3",
     "grunt-browserify": "^4.0.1",
     "lodash": "^3.10.1",
+    "moment": "^2.10.6",
     "omega-logger": "^0.6.3",
     "passport": "^0.2.2",
     "passport-persona": "^0.1.7",

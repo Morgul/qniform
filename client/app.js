@@ -22,6 +22,9 @@ import personaSvc from './components/persona/personaService';
 import HomeComponent from './pages/home/home';
 import DashboardComponent from './pages/dashboard/dashboard';
 
+// Filters
+import './components/moment/momentFilters';
+
 // Components
 import './components/navbar/navbar';
 import './components/test_tag/test';
