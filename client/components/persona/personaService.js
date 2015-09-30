@@ -5,6 +5,7 @@
 import http from 'axios';
 
 import eventSvc from '../events/eventService';
+import routerSvc from '../router/routerService';
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -31,6 +32,7 @@ class PersonaService
             {
                 this.currentUser = response.data;
                 eventSvc.broadcast('logged in', this.currentUser);
+                routerSvc.go('/dashboard');
             })
             .catch((response) =>
             {
@@ -47,6 +49,7 @@ class PersonaService
                 this.signOut();
                 this.currentUser = null;
                 eventSvc.broadcast('logged out');
+                routerSvc.go('/');
             })
             .catch((response) =>
             {

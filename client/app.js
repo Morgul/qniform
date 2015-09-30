@@ -15,6 +15,7 @@ Vue.use(VueRouter);
 
 // Services
 import eventSvc from './components/events/eventService';
+import routerSvc from './components/router/routerService';
 import personaSvc from './components/persona/personaService';
 
 // Pages
@@ -29,24 +30,18 @@ import './components/test_tag/test';
 // App Setup
 //----------------------------------------------------------------------------------------------------------------------
 
-var app = new Vue({
-    //el: '#main-app',
-    ready: () =>
-    {
-        console.log('Application Started.');
-    }
-});
+var app = new Vue({});
 
 //----------------------------------------------------------------------------------------------------------------------
 // Router
 //----------------------------------------------------------------------------------------------------------------------
 
-var router = new VueRouter({
+routerSvc.setup({
     history: true,
     saveScrollPosition: true
 });
 
-router.map({
+routerSvc.map({
     '/': {
         name: 'home',
         component: HomeComponent
@@ -61,10 +56,10 @@ router.map({
 // Service Setup
 //----------------------------------------------------------------------------------------------------------------------
 
-// Setup Event Service
-eventSvc.init(app);
-
 // Setup router
-router.start(app, '#main-app');
+routerSvc.start(app, '#main-app');
+
+// Setup Event Service
+eventSvc.init(routerSvc.app);
 
 //----------------------------------------------------------------------------------------------------------------------
