@@ -4,37 +4,62 @@
 /// @module
 //----------------------------------------------------------------------------------------------------------------------
 
-import Vue from 'vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
 // Services
-import eventSvc from './components/events/eventService'
-import personaSvc from './components/persona/personaService.js'
+import eventSvc from './components/events/eventService';
+import personaSvc from './components/persona/personaService';
+
+// Pages
+import HomeComponent from './pages/home/home.js';
 
 // Components
-import './components/navbar/navbar'
-import './components/test_tag/test'
+import './components/navbar/navbar';
+import './components/test_tag/test';
 
 //----------------------------------------------------------------------------------------------------------------------
 
+Vue.use(VueRouter);
+
+//----------------------------------------------------------------------------------------------------------------------
+// App Setup
+//----------------------------------------------------------------------------------------------------------------------
+
 var app = new Vue({
-    el: "#main-app",
-    data: {
-        msg: 'Hello'
-    },
-    computed: {
-        fullMsg: function()
-        {
-            var now = Date.now();
-            return `${ this.msg } World (${ now })`;
-        }
+    el: '#main-app',
+    ready: () =>
+    {
+        console.log('Application Started.');
     }
 });
+
+//----------------------------------------------------------------------------------------------------------------------
+// Router
+//----------------------------------------------------------------------------------------------------------------------
+
+var router = new VueRouter({
+    history: true,
+    saveScrollPosition: true
+});
+
+router.map({
+    '/': {
+        component: HomeComponent
+    },
+    //'/dashboard': {
+    //    component: 'dashboard'
+    //}
+});
+
+//----------------------------------------------------------------------------------------------------------------------
+// Service Setup
+//----------------------------------------------------------------------------------------------------------------------
 
 // Setup Event Service
 eventSvc.init(app);
 
-//----------------------------------------------------------------------------------------------------------------------
-
-console.log('Application Started.');
+// Setup router
+router.start(app, '#main-app');
 
 //----------------------------------------------------------------------------------------------------------------------
