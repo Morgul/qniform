@@ -7,27 +7,30 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+//----------------------------------------------------------------------------------------------------------------------
+
+Vue.use(VueRouter);
+
+//----------------------------------------------------------------------------------------------------------------------
+
 // Services
 import eventSvc from './components/events/eventService';
 import personaSvc from './components/persona/personaService';
 
 // Pages
-import HomeComponent from './pages/home/home.js';
+import HomeComponent from './pages/home/home';
+import DashboardComponent from './pages/dashboard/dashboard';
 
 // Components
 import './components/navbar/navbar';
 import './components/test_tag/test';
 
 //----------------------------------------------------------------------------------------------------------------------
-
-Vue.use(VueRouter);
-
-//----------------------------------------------------------------------------------------------------------------------
 // App Setup
 //----------------------------------------------------------------------------------------------------------------------
 
 var app = new Vue({
-    el: '#main-app',
+    //el: '#main-app',
     ready: () =>
     {
         console.log('Application Started.');
@@ -45,11 +48,13 @@ var router = new VueRouter({
 
 router.map({
     '/': {
+        name: 'home',
         component: HomeComponent
     },
-    //'/dashboard': {
-    //    component: 'dashboard'
-    //}
+    '/dashboard': {
+        name: 'dashboard',
+        component: DashboardComponent
+    }
 });
 
 //----------------------------------------------------------------------------------------------------------------------

@@ -19,6 +19,7 @@ import personaAuth from './auth/persona';
 
 // Routes
 import routeUtils from './routes/utils';
+import dashRouter from './routes/dashboard'
 import rootRouter from './routes/root';
 
 // Config
@@ -85,7 +86,8 @@ app.use(function(req, resp, next)
 });
 
 // Routes
-app.use(rootRouter);
+app.use('/dashboard', dashRouter);
+app.use('/', rootRouter);
 
 var server = app.listen(port);
 
