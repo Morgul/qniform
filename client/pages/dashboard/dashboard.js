@@ -35,6 +35,21 @@ export default vueLoader.extend({
                     title: "Me, You, Writing and Procrastination",
                     created: new Date('12-01-1992'),
                     updated: new Date('1-10-1993')
+                },
+                {
+                    title: "Other Story1",
+                    created: new Date('9-18-14'),
+                    updated: new Date('2-10-15')
+                },
+                {
+                    title: "Other Story2",
+                    created: new Date('9-18-14'),
+                    updated: new Date('2-10-15')
+                },
+                {
+                    title: "Other Story3",
+                    created: new Date('9-18-14'),
+                    updated: new Date('2-10-15')
                 }
             ]
         };

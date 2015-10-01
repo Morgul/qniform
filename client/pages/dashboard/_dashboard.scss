@@ -1,0 +1,50 @@
+//----------------------------------------------------------------------------------------------------------------------
+// Dashboard style
+//----------------------------------------------------------------------------------------------------------------------
+
+#dashboard {
+    #searchbar {
+        margin-bottom: 10px;
+
+        & > .btn-toolbar {
+            @media (min-width: 62em) {
+                width: 50%;
+            }
+        }
+    }
+
+    #manuscripts {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 10px;
+
+        .card {
+            flex: 1 1 350px;
+            margin: 5px;
+            cursor: pointer;
+
+            &:hover {
+
+            }
+
+            .card-title {
+                margin-bottom: 1.5rem;
+            }
+
+            .updated {
+                position: absolute;
+                bottom: .5rem;
+                left: .75rem;
+            }
+
+            .controls {
+                position: absolute;
+                bottom: .5rem;
+                right: .75rem;
+            }
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------

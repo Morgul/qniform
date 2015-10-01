@@ -46,6 +46,16 @@ module.exports = function(grunt)
                 dest: 'dist'
             }
         },
+        postcss: {
+            options: {
+                processors: [
+                    require('autoprefixer')({browsers: 'last 2 versions'}),
+                ]
+            },
+            dist: {
+                src: 'dist/css/*.css'
+            }
+        },
         watch: {
             index: {
                 files: ["client/index.html"],
@@ -57,7 +67,7 @@ module.exports = function(grunt)
             },
             scss: {
                 files: ["client/**/*.scss"],
-                tasks: ["sass"]
+                tasks: ["sass", "postcss"]
             },
             scripts: {
                 files: ["client/**/*.js"],
@@ -69,6 +79,7 @@ module.exports = function(grunt)
     //------------------------------------------------------------------------------------------------------------------
 
     grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -76,7 +87,7 @@ module.exports = function(grunt)
 
     //------------------------------------------------------------------------------------------------------------------
 
-    grunt.registerTask("build", ["clean", "sass", "copy", "browserify"]);
+    grunt.registerTask("build", ["clean", "sass", "postcss", "copy", "browserify"]);
     grunt.registerTask("default", ["build", 'watch']);
 
     //------------------------------------------------------------------------------------------------------------------

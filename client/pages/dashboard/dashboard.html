@@ -1,8 +1,8 @@
-<div class="card">
-    <div class="card-header">
-        <div class="btn-toolbar pull-right" style="margin-top: -2px; width: 50%">
+<div id="dashboard">
+    <div id="searchbar" class="clearfix">
+        <div class="btn-toolbar pull-right">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for..." v-model="docFilter">
+                <input type="text" class="form-control" placeholder="Search for Manuscript..." v-model="docFilter">
                 <span class="input-group-btn">
                     <button class="btn btn-primary">
                         <i class="fa fa-fw fa-plus"></i>
@@ -10,25 +10,25 @@
                 </span>
             </div>
         </div>
-        <h4><i class="fa fa-book"></i> Manuscripts</h4>
     </div>
-    <ul class="list-group list-group-flush">
-        <li v-for="doc in manuscripts | filterBy docFilter" class="list-group-item">
-            <div class="btn-toolbar pull-right">
-                <button class="btn btn-primary-outline">
-                    <i class="fa fa-fw fa-edit"></i>
-                </button>
-                <button class="btn btn-secondary-outline">
-                    <i class="fa fa-fw fa-gears"></i>
-                </button>
-                <button class="btn btn-danger-outline">
-                    <i class="fa fa-fw fa-trash-o"></i>
-                </button>
+
+    <div id="manuscripts">
+        <div class="card" v-for="doc in manuscripts | filterBy docFilter">
+            <div class="card-block">
+                <h4 class="card-title">{{ doc.title }}</h4>
+                <div class="updated">
+                    <small class="text-muted">Last updated {{ doc.updated | fromNow }}</small>
+                </div>
+                <div class="controls btn-toolbar">
+                    <button class="btn btn-sm btn-secondary-outline">
+                        <i class="fa fa-fw fa-gears"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger-outline">
+                        <i class="fa fa-fw fa-trash-o"></i>
+                    </button>
+                </div>
             </div>
-            <h4 class="list-group-item-heading">{{ doc.title }}</h4>
-            <small class="text-muted">
-                <i>Created: {{ doc.created | calendar }}, Last Updated: {{ doc.updated | calendar }}</i>
-            </small>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
+
