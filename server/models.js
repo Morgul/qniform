@@ -15,6 +15,7 @@ var db = { r: thinky.r, errors: thinky.Errors };
 db.Manuscript = thinky.createModel('manuscripts', {
     title: String,
     userID: String,
+    description: String,
     created: { _type: Date, default: Date.now() },
     updated: { _type: Date, default: Date.now() }
 });

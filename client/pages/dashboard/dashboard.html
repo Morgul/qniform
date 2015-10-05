@@ -16,6 +16,7 @@
         <div class="card" v-for="doc in manuscripts | filterBy docFilter">
             <div class="card-block">
                 <h4 class="card-title">{{ doc.title }}</h4>
+                <p class="card-text">{{ doc.description }}</p>
                 <div class="updated">
                     <small class="text-muted">Last updated {{ doc.updated | fromNow }}</small>
                 </div>
