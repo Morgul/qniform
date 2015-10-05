@@ -2,9 +2,9 @@
 // Persona Controller
 //----------------------------------------------------------------------------------------------------------------------
 
+import _ from 'lodash';
 import http from 'axios';
 
-import eventSvc from '../events/eventService';
 import routerSvc from '../router/routerService';
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -13,25 +13,38 @@ class PersonaService
 {
     constructor()
     {
-        this.currentUser = null;
+        // This object needs to not be over written, because Vue creates getters/setters for the properties on it.
+        this.currentUser = {
+            name: "",
+            email: "",
+            created: ""
+        };
+
         this.loginUrl = '/auth/login-persona';
         this.logoutUrl = '/auth/logout-persona';
 
         // Register for the Persona events
         navigator.id.watch({
-            loggedInUser: this.currentUser,
+            loggedInUser: this.currentUser.email,
             onlogin: this._onLogIn.bind(this),
             onlogout: this._onLogOut.bind(this)
         });
     } // end constructor
+
+    _clearUser()
+    {
+        this.currentUser.name = "";
+        this.currentUser.email = "";
+        this.currentUser.created = "";
+    } // end _clearUser
 
     _onLogIn(assertion)
     {
         http.post(this.loginUrl, { assertion })
             .then((response) =>
             {
-                this.currentUser = response.data;
-                eventSvc.broadcast('logged in', this.currentUser);
+                // Assign to the properties
+                _.assign(this.currentUser, response.data);
                 routerSvc.go('/dashboard');
             })
             .catch((response) =>
@@ -47,8 +60,6 @@ class PersonaService
             .then(() =>
             {
                 this.signOut();
-                this.currentUser = null;
-                eventSvc.broadcast('logged out');
                 routerSvc.go('/');
             })
             .catch((response) =>
@@ -64,6 +75,7 @@ class PersonaService
 
     signOut()
     {
+        this._clearUser();
         navigator.id.logout();
     } // end signOut
 } // end PersonaService

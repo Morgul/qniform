@@ -14,11 +14,11 @@
         </ul>
         <div class="form-inline navbar-form pull-right">
             <p class="form-control-static">{{ display }}&nbsp;</p>
-            <button v-if="!user" class="btn btn-primary" @click="signIn()">
+            <button v-if="!loggedIn" class="btn btn-primary" @click="signIn()">
                 <i class="fa fa-fw fa-envelope-o"></i>
                 <span>Sign In</span>
             </button>
-            <button v-if="user" class="btn btn-primary" @click="signOut()">
+            <button v-if="loggedIn" class="btn btn-primary" @click="signOut()">
                 <i class="fa fa-fw fa-sign-out"></i>
                 <span>Sign Out</span>
             </button>

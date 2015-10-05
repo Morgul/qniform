@@ -4,8 +4,10 @@
 /// @module
 //----------------------------------------------------------------------------------------------------------------------
 
-import vueLoader from '../loader/vueLoader'
-import personaSvc from '../persona/personaService'
+import _ from 'lodash';
+
+import vueLoader from '../loader/vueLoader';
+import personaSvc from '../persona/personaService';
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -15,13 +17,17 @@ vueLoader.component('navbar', {
     data: function()
     {
         return {
-            user: null
+            user: personaSvc.currentUser
         };
     },
     computed: {
+        loggedIn: function()
+        {
+            return !!this.user.email;
+        },
         display: function()
         {
-            return this.user ? (this.user.name || this.user.email) : "";
+            return this.user.name || this.user.email;
         }
     },
     methods: {
@@ -33,18 +39,6 @@ vueLoader.component('navbar', {
         {
             personaSvc.signOut();
         }
-    },
-    created: function()
-    {
-        this.$on('logged in', (user) =>
-        {
-            this.user = user;
-        });
-
-        this.$on('logged out', () =>
-        {
-            this.user = null;
-        });
     }
 });
 
