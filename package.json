@@ -12,6 +12,7 @@
   "author": "Christopher S. Case <chris.case@g33xnexus.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-runtime": "^5.8.25",
     "babelify": "^6.3.0",
     "browserify": "^11.2.0",
     "grunt": "^0.4.5",
@@ -20,22 +21,29 @@
     "grunt-contrib-copy": "^0.8.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-sass": "^1.0.0",
-    "remapify": "^2.0.3"
+    "insert-css": "^0.2.0",
+    "node-sass": "^3.3.3",
+    "remapify": "^2.0.3",
+    "vueify": "^2.0.1"
   },
   "dependencies": {
+    "autoprefixer": "^6.0.3",
+    "axios": "^0.7.0",
     "babel": "^5.8.23",
     "bluebird": "^2.10.1",
     "body-parser": "^1.14.1",
     "cookie-parser": "^1.4.0",
     "express": "^4.13.3",
+    "express-session": "^1.11.3",
     "grunt-browserify": "^4.0.1",
+    "grunt-postcss": "^0.6.0",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "omega-logger": "^0.6.3",
     "passport": "^0.2.2",
     "passport-persona": "^0.1.7",
     "thinky": "^2.1.8",
-    "vue": "^1.0.0-beta.2",
-    "vue-router": "^0.6.1"
+    "vue": "^1.0.0-beta.4",
+    "vue-router": "^0.7.0"
   }
 }

@@ -7,44 +7,43 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-//----------------------------------------------------------------------------------------------------------------------
-
-Vue.use(VueRouter);
-
-//----------------------------------------------------------------------------------------------------------------------
-
 // Services
-import eventSvc from './components/events/eventService';
-import routerSvc from './components/router/routerService';
-import personaSvc from './components/persona/personaService';
+import RouterSvc from './components/router/routerService';
 
 // Pages
-import HomeComponent from './pages/home/home';
-import DashboardComponent from './pages/dashboard/dashboard';
+import HomeComponent from './pages/home/home.vue';
+import DashboardComponent from './pages/dashboard/dashboard.vue';
 
 // Filters
 import './components/moment/momentFilters';
 
 // Components
-import './components/navbar/navbar';
-import './components/test_tag/test';
+import navbar from './components/navbar/navbar.vue';
 
 //----------------------------------------------------------------------------------------------------------------------
 // App Setup
 //----------------------------------------------------------------------------------------------------------------------
 
-var app = new Vue({});
+Vue.config.debug = true;
+Vue.use(VueRouter);
+
+var app = Vue.extend({
+    components: {
+        navbar
+    }
+});
 
 //----------------------------------------------------------------------------------------------------------------------
 // Router
 //----------------------------------------------------------------------------------------------------------------------
 
-routerSvc.setup({
+RouterSvc.setup({
     history: true,
-    saveScrollPosition: true
+    saveScrollPosition: true,
+    linkActiveClass: 'active'
 });
 
-routerSvc.map({
+RouterSvc.map({
     '/': {
         name: 'home',
         component: HomeComponent
@@ -60,9 +59,6 @@ routerSvc.map({
 //----------------------------------------------------------------------------------------------------------------------
 
 // Setup router
-routerSvc.start(app, '#main-app');
-
-// Setup Event Service
-eventSvc.init(routerSvc.app);
+RouterSvc.start(app, '#main-app');
 
 //----------------------------------------------------------------------------------------------------------------------

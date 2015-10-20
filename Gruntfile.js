@@ -5,29 +5,6 @@
 module.exports = function(grunt)
 {
     grunt.initConfig({
-        browserify: {
-            dist: {
-                options: {
-                    transform: [
-                        ["babelify"]
-                    ]
-                },
-                files: {
-                    "./dist/qniform.js": ["./client/**/*.js"]
-                }
-            }
-        },
-        sass: {
-            dist: {
-                options: {
-                    includePaths: ['vendor/bootstrap/scss', 'client/scss', 'client'],
-                    style: 'expanded'
-                },
-                files: {
-                    'dist/css/app.css': 'client/scss/theme.scss'
-                }
-            }
-        },
         clean: ['dist'],
         copy: {
             index: {
@@ -42,8 +19,34 @@ module.exports = function(grunt)
             },
             vendor: {
                 expand: true,
-                src: ['vendor/**/*.js', 'vendor/font-awesome/**/*', '!vendor/vue/**/*.js'],
+                src: ['vendor/**/*.js', 'vendor/font-awesome/**/*'],
                 dest: 'dist'
+            }
+        },
+        browserify: {
+            options: {
+                transform: [ ["vueify"], ["babelify"] ]
+            },
+            debug: {
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    }
+                },
+                files: {
+                    "./dist/qniform.js": "client/app.js"
+                }
+            }
+        },
+        sass: {
+            dist: {
+                options: {
+                    includePaths: ['vendor/bootstrap/scss', 'client/scss', 'client'],
+                    style: 'expanded'
+                },
+                files: {
+                    'dist/css/app.css': 'client/scss/theme.scss'
+                }
             }
         },
         postcss: {
@@ -70,7 +73,7 @@ module.exports = function(grunt)
                 tasks: ["sass", "postcss"]
             },
             scripts: {
-                files: ["client/**/*.js"],
+                files: ["client/**/*.js", 'client/**/*.vue'],
                 tasks: ["browserify"]
             }
         }
