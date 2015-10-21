@@ -69,11 +69,11 @@ module.exports = function(grunt)
                 tasks: ["copy:html"]
             },
             scss: {
-                files: ["client/**/*.scss"],
+                files: ["client/scss/**/*.scss"],
                 tasks: ["sass", "postcss"]
             },
             scripts: {
-                files: ["client/**/*.js", 'client/**/*.vue'],
+                files: ["client/**/*.js", 'client/**/*.vue', "client/components/**/*.scss", "client/pages/**/*.scss"],
                 tasks: ["browserify"]
             }
         }
