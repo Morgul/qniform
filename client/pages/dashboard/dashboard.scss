@@ -17,15 +17,39 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        padding: 10px;
+        padding: 10px 0;
 
         .card {
-            flex: 1 1 350px;
+            min-height: 160px;
+            width: calc(20% - 10px);
+            flex-shrink: 1;
+            flex-grow: 0;
+            flex-basis: calc(20% - 10px);
             margin: 5px;
             cursor: pointer;
 
-            &:hover {
+            @media(max-width: 1549px)
+            {
+                width: calc(25% - 10px);
+                flex-basis: calc(25% - 10px);
+            }
 
+            @media(max-width: 1249px)
+            {
+                width: calc(33% - 10px);
+                flex-basis: calc(33% - 10px);
+            }
+
+            @media(max-width: 949px)
+            {
+                width: calc(50% - 10px);
+                flex-basis: calc(50% - 10px);
+            }
+
+            @media(max-width: 649px)
+            {
+                width: calc(100% - 10px);
+                flex-basis: calc(100% - 10px);
             }
 
             .card-text {

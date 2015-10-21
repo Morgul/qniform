@@ -4,11 +4,11 @@
             <div class="btn-toolbar pull-right">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for Manuscript..." v-model="docFilter">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary">
-                        <i class="fa fa-fw fa-plus"></i>
-                    </button>
-                </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary">
+                            <i class="fa fa-fw fa-plus"></i>
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>
