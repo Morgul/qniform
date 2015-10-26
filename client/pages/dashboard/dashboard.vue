@@ -22,7 +22,7 @@
                         <small class="text-muted">Last updated {{ doc.updated | fromNow }}</small>
                     </div>
                     <div class="controls btn-toolbar">
-                        <button class="btn btn-sm btn-secondary-outline" data-toggle="modal" data-target="#docSettings">
+                        <button class="btn btn-sm btn-secondary-outline" @click="showSettings($index)">
                             <i class="fa fa-fw fa-gears"></i>
                         </button>
                         <button class="btn btn-sm btn-danger-outline" @click="maybeDelete(doc, true)">
@@ -43,28 +43,37 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="docSettings" tabindex="-1" role="dialog" aria-labelledby="docSettings" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-gears"></i> Document Settings</h4>
-                    </div>
-                    <div class="modal-body">
-                        Fucking hell.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+            <!-- Settings Modals -->
+            <modal width="800px" v-ref:settings v-for="doc in clone(manuscripts) | filterBy docFilter">
+                <div class="modal-header" slot="header">
+                    <h4 class="modal-title">
+                        <i class="fa fa-fw fa-gears"></i> Settings for "{{ doc.$orig.title }}"
+                    </h4>
                 </div>
-            </div>
+                <div class="modal-body" slot="body">
+                    <form>
+                        <fieldset class="form-group">
+                            <label for="title"><b>Title</b></label>
+                            <input type="text" class="form-control" id="title" placeholder="Enter Title..." v-model="doc.title">
+                            <small class="text-muted">Don't stress over a title; you can change this as many times as you want.</small>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label for="desc"><b>Description</b></label>
+                            <input type="text" class="form-control" id="desc" placeholder="Enter description..." v-model="doc.description">
+                            <small class="text-muted">Keep it brief: 2 to 5 sentences at the most.</small>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer" slot="footer">
+                    <button type="button"
+                            class="btn btn-primary"
+                            @click="saveSettings($index, doc)">Save changes</button>
+                    <button type="button"
+                            class="btn btn-secondary"
+                            @click="closeSettings($index)">Close</button>
+                </div>
+            </modal>
         </div>
     </div>
 </template>
@@ -86,6 +95,7 @@
                 docFilter: "",
                 manuscripts: [
                     {
+                        id: '1',
                         title: "My Test Story",
                         description: "A sample description would go here.",
                         deleting: false,
@@ -93,6 +103,7 @@
                         updated: new Date('2015-09-28T18:23:45.579Z')
                     },
                     {
+                        id: '2',
                         title: "Other Stories",
                         description: "A sample description would go here.",
                         deleting: false,
@@ -100,6 +111,7 @@
                         updated: new Date('2-10-15')
                     },
                     {
+                        id: '3',
                         title: "Alice im Wunderland",
                         description: "Es ist nicht pornografischen Inhalten. Ich schwöre.",
                         deleting: false,
@@ -107,6 +119,7 @@
                         updated: new Date('4-11-15')
                     },
                     {
+                        id: '4',
                         title: "Me, You, Writing and Procrastination",
                         description: "An ongoing example of what not to do.",
                         deleting: false,
@@ -114,6 +127,7 @@
                         updated: new Date('1-10-1993')
                     },
                     {
+                        id: '5',
                         title: "Other Story 1",
                         description: "A sample description would go here.",
                         deleting: false,
@@ -121,6 +135,7 @@
                         updated: new Date('2-10-15')
                     },
                     {
+                        id: '6',
                         title: "Other Story 2",
                         description: "A sample description would go here.",
                         deleting: false,
@@ -128,6 +143,7 @@
                         updated: new Date('2-10-15')
                     },
                     {
+                        id: '7',
                         title: "Other Story 3",
                         description: "A sample description would go here.",
                         deleting: false,
@@ -138,14 +154,42 @@
             };
         },
         methods: {
+            clone: function(list)
+            {
+                return _.map(list, (item) => {
+                    var clone = _.clone(item);
+                    clone.$orig = item;
+
+                    return clone;
+                });
+
+            },
             maybeDelete: function(doc, value)
             {
                 doc.deleting = value;
             },
-
             deleteDoc: function(index)
             {
                 this.manuscripts.splice(index, 1);
+            },
+            showSettings: function(index)
+            {
+                this.$refs.settings[index].showModal();
+            },
+            saveSettings: function(index, doc)
+            {
+                doc.$orig.title = doc.title;
+                doc.$orig.description = doc.description;
+
+                //TODO: Save document!
+
+                console.log('save!', doc);
+
+                this.$refs.settings[index].hideModal();
+            },
+            closeSettings: function(index)
+            {
+                this.$refs.settings[index].hideModal();
             }
         }
     }
