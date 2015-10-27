@@ -44,6 +44,7 @@
     "passport-persona": "^0.1.7",
     "thinky": "^2.1.8",
     "vue": "^1.0.0-beta.4",
-    "vue-router": "^0.7.0"
+    "vue-router": "^0.7.0",
+    "vueboot": "^0.1.0"
   }
 }

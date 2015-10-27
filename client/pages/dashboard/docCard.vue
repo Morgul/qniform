@@ -65,6 +65,8 @@
 <script type="text/babel" lang="es">
     import _ from 'lodash';
 
+    import vueboot from 'vueboot';
+
     export default {
         props: ['doc'],
         components: {

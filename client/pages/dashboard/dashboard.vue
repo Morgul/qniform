@@ -23,7 +23,6 @@
 
 <script type="text/babel" lang="es">
     import _ from 'lodash';
-    //import vueboot from 'vueboot';
 
     import docCard from './docCard.vue';
 
