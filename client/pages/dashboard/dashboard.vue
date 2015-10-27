@@ -14,66 +14,7 @@
         </div>
 
         <div id="manuscripts">
-            <div v-for="doc in manuscripts | filterBy docFilter" :class="{ card: true, 'card-inverse' : doc.deleting,  'card-danger': doc.deleting }">
-                <div v-if="!doc.deleting" class="card-block">
-                    <h4 class="card-title">{{ doc.title }}</h4>
-                    <p class="card-text">{{ doc.description }}</p>
-                    <div class="updated">
-                        <small class="text-muted">Last updated {{ doc.updated | fromNow }}</small>
-                    </div>
-                    <div class="controls btn-toolbar">
-                        <button class="btn btn-sm btn-secondary-outline" @click="showSettings($index)">
-                            <i class="fa fa-fw fa-gears"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger-outline" @click="maybeDelete(doc, true)">
-                            <i class="fa fa-fw fa-trash-o"></i>
-                        </button>
-                    </div>
-                </div>
-                <div v-if="doc.deleting" class="card-block text-center">
-                    <h4 class="card-title">Delete this manuscript?</h4>
-                    <p class="card-text">"{{ doc.title }}"</p>
-                    <div class="controls btn-toolbar">
-                        <button class="btn btn-sm btn-secondary" @click="maybeDelete(doc, false)">
-                            <i class="fa fa-fw fa-undo"></i>
-                        </button>
-                        <button class="btn btn-sm btn-warning" @click="deleteDoc($index)">
-                            <i class="fa fa-fw fa-trash-o"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Settings Modals -->
-            <modal width="800px" v-ref:settings v-for="doc in clone(manuscripts) | filterBy docFilter">
-                <div class="modal-header" slot="header">
-                    <h4 class="modal-title">
-                        <i class="fa fa-fw fa-gears"></i> Settings for "{{ doc.$orig.title }}"
-                    </h4>
-                </div>
-                <div class="modal-body" slot="body">
-                    <form>
-                        <fieldset class="form-group">
-                            <label for="title"><b>Title</b></label>
-                            <input type="text" class="form-control" id="title" placeholder="Enter Title..." v-model="doc.title">
-                            <small class="text-muted">Don't stress over a title; you can change this as many times as you want.</small>
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <label for="desc"><b>Description</b></label>
-                            <input type="text" class="form-control" id="desc" placeholder="Enter description..." v-model="doc.description">
-                            <small class="text-muted">Keep it brief: 2 to 5 sentences at the most.</small>
-                        </fieldset>
-                    </form>
-                </div>
-                <div class="modal-footer" slot="footer">
-                    <button type="button"
-                            class="btn btn-primary"
-                            @click="saveSettings($index, doc)">Save changes</button>
-                    <button type="button"
-                            class="btn btn-secondary"
-                            @click="closeSettings($index)">Close</button>
-                </div>
-            </modal>
+            <doc-card :doc="doc" v-for="doc in manuscripts | filterBy docFilter"></doc-card>
         </div>
     </div>
 </template>
@@ -84,10 +25,12 @@
     import _ from 'lodash';
     //import vueboot from 'vueboot';
 
+    import docCard from './docCard.vue';
+
     export default {
         name: 'Dashboard',
         components: {
-            modal: vueboot.modal
+            docCard: docCard
         },
         data: function()
         {
@@ -154,42 +97,10 @@
             };
         },
         methods: {
-            clone: function(list)
+            removeDoc: function(doc)
             {
-                return _.map(list, (item) => {
-                    var clone = _.clone(item);
-                    clone.$orig = item;
-
-                    return clone;
-                });
-
-            },
-            maybeDelete: function(doc, value)
-            {
-                doc.deleting = value;
-            },
-            deleteDoc: function(index)
-            {
-                this.manuscripts.splice(index, 1);
-            },
-            showSettings: function(index)
-            {
-                this.$refs.settings[index].showModal();
-            },
-            saveSettings: function(index, doc)
-            {
-                doc.$orig.title = doc.title;
-                doc.$orig.description = doc.description;
-
-                //TODO: Save document!
-
-                console.log('save!', doc);
-
-                this.$refs.settings[index].hideModal();
-            },
-            closeSettings: function(index)
-            {
-                this.$refs.settings[index].hideModal();
+                var idx = _.findIndex(this.manuscripts, { id: doc.id });
+                this.manuscripts.splice(idx, 1);
             }
         }
     }
